@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -7,6 +8,7 @@ import { ArrowRight, Star, ShieldCheck, Sparkles, Truck, Clock } from "lucide-re
 import cakesData from "@/data/cakes.json";
 import testimonialsData from "@/data/testimonials.json";
 import SchemaMarkup from "@/components/SchemaMarkup";
+import { getCakes, getTestimonials } from "@/lib/adminStore";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -24,7 +26,15 @@ const staggerContainer = {
 };
 
 export default function Home() {
-  const bestSellers = cakesData.filter((cake) => cake.tags.includes("Best Seller"));
+  const [cakes, setCakes] = useState(cakesData);
+  const [testimonials, setTestimonials] = useState(testimonialsData);
+
+  useEffect(() => {
+    setCakes(getCakes());
+    setTestimonials(getTestimonials());
+  }, []);
+
+  const bestSellers = cakes.filter((cake) => cake.tags.includes("Best Seller"));
   const categories = [
     { name: "Wedding", image: "/cake_wedding.jpg", desc: "Grand multi-tier masterpieces" },
     { name: "Birthday", image: "/cake_birthday.jpg", desc: "Whimsical theme designs for all ages" },
@@ -298,7 +308,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {testimonialsData.map((item) => (
+            {testimonials.map((item) => (
               <div key={item.id} className="border border-warm-bg/15 p-6 rounded-2xl bg-warm-bg/5 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="flex text-accent-gold">

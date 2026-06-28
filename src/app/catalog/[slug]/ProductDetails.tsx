@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, ArrowLeft, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import SchemaMarkup from "@/components/SchemaMarkup";
+import { getCakes } from "@/lib/adminStore";
 
 interface Cake {
   id: string;
@@ -26,9 +27,20 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ cake, relatedCakes }: ProductDetailsProps) {
+  const [currentCake, setCurrentCake] = useState(cake);
   const [selectedSize, setSelectedSize] = useState(cake.sizes[0]);
   const [selectedFlavor, setSelectedFlavor] = useState(cake.flavors[0]);
   const [isEggless, setIsEggless] = useState(true); // default to eggless since it's highly searched locally
+
+  useEffect(() => {
+    const localCakes = getCakes();
+    const found = localCakes.find((c) => c.slug === cake.slug);
+    if (found) {
+      setCurrentCake(found);
+      setSelectedSize(found.sizes[0]);
+      setSelectedFlavor(found.flavors[0]);
+    }
+  }, [cake.slug]);
 
   const businessNumber = "919876543210";
 
@@ -43,10 +55,10 @@ export default function ProductDetails({ cake, relatedCakes }: ProductDetailsPro
     return 1; // 1kg base
   };
 
-  const calculatedPrice = Math.round(cake.price * getPriceMultiplier(selectedSize));
+  const calculatedPrice = Math.round(currentCake.price * getPriceMultiplier(selectedSize));
 
   const textMessage = `Hi Anah Cakes! I'd like to order:
-- Cake: ${cake.name}
+- Cake: ${currentCake.name}
 - Size: ${selectedSize}
 - Flavor: ${selectedFlavor}
 - Preparation: ${isEggless ? "100% Eggless" : "Standard (Contains Egg)"}
@@ -61,18 +73,18 @@ Delivery Area in Coimbatore: _________________`;
       {/* Schemas */}
       <SchemaMarkup
         type="product"
-        name={cake.name}
-        image={cake.image}
-        description={cake.description}
+        name={currentCake.name}
+        image={currentCake.image}
+        description={currentCake.description}
         price={calculatedPrice}
-        slug={cake.slug}
+        slug={currentCake.slug}
       />
       <SchemaMarkup
         type="breadcrumbs"
         items={[
           { name: "Home", url: "/" },
           { name: "Catalog", url: "/catalog" },
-          { name: cake.name, url: `/catalog/${cake.slug}` },
+          { name: currentCake.name, url: `/catalog/${currentCake.slug}` },
         ]}
       />
 
@@ -93,14 +105,18 @@ Delivery Area in Coimbatore: _________________`;
           className="relative aspect-square border border-accent-gold/20 p-4 rounded-3xl glass-card w-full max-w-lg mx-auto"
         >
           <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-xl">
-            <Image
-              src={cake.image}
-              alt={cake.name}
-              fill
-              priority
-              className="object-cover hover:scale-105 transition-transform duration-700"
-              sizes="(max-w-768px) 100vw, 500px"
-            />
+            {currentCake.image ? (
+              <Image
+                src={currentCake.image}
+                alt={currentCake.name}
+                fill
+                priority
+                className="object-cover hover:scale-105 transition-transform duration-700"
+                sizes="(max-w-768px) 100vw, 500px"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-100 flex items-center justify-center">No Image Available</div>
+            )}
           </div>
         </motion.div>
 
@@ -115,9 +131,9 @@ Delivery Area in Coimbatore: _________________`;
           <div className="space-y-2">
             <div className="flex flex-wrap gap-2">
               <span className="bg-accent-gold/15 text-primary-wine text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-md font-sans">
-                {cake.category} Selection
+                {currentCake.category} Selection
               </span>
-              {cake.tags.map((tag) => (
+              {currentCake.tags.map((tag) => (
                 <span
                   key={tag}
                   className="bg-text-espresso text-warm-bg text-[10px] uppercase font-semibold tracking-widest px-2.5 py-1 rounded-md font-sans"
@@ -127,7 +143,7 @@ Delivery Area in Coimbatore: _________________`;
               ))}
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-text-espresso">
-              {cake.name}
+              {currentCake.name}
             </h1>
             <div className="flex items-center gap-4 pt-1">
               <span className="font-sans text-3xl font-extrabold text-primary-wine">
@@ -143,7 +159,7 @@ Delivery Area in Coimbatore: _________________`;
 
           {/* Description */}
           <p className="font-sans text-base text-text-espresso/80 leading-relaxed">
-            {cake.description}
+            {currentCake.description}
           </p>
 
           {/* Configuration Form */}
@@ -154,7 +170,7 @@ Delivery Area in Coimbatore: _________________`;
                 Select Weight / Size
               </span>
               <div className="flex flex-wrap gap-2.5">
-                {cake.sizes.map((size) => (
+                {currentCake.sizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
@@ -171,26 +187,28 @@ Delivery Area in Coimbatore: _________________`;
             </div>
 
             {/* Flavor Selector */}
-            <div className="space-y-2.5">
-              <label
-                htmlFor="flavor-select"
-                className="text-xs uppercase font-bold tracking-widest text-accent-gold font-sans block"
-              >
-                Choose Sponge / Flavor
-              </label>
-              <select
-                id="flavor-select"
-                value={selectedFlavor}
-                onChange={(e) => setSelectedFlavor(e.target.value)}
-                className="w-full max-w-xs px-3.5 py-2.5 rounded-xl border border-accent-gold/25 bg-white font-sans text-sm focus:outline-none focus:ring-1 focus:ring-primary-wine focus:border-primary-wine text-text-espresso"
-              >
-                {cake.flavors.map((flavor) => (
-                  <option key={flavor} value={flavor}>
-                    {flavor}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {currentCake.flavors.length > 0 && (
+              <div className="space-y-2.5">
+                <label
+                  htmlFor="flavor-select"
+                  className="text-xs uppercase font-bold tracking-widest text-accent-gold font-sans block"
+                >
+                  Choose Sponge / Flavor
+                </label>
+                <select
+                  id="flavor-select"
+                  value={selectedFlavor}
+                  onChange={(e) => setSelectedFlavor(e.target.value)}
+                  className="w-full max-w-xs px-3.5 py-2.5 rounded-xl border border-accent-gold/25 bg-white font-sans text-sm focus:outline-none focus:ring-1 focus:ring-primary-wine focus:border-primary-wine text-text-espresso"
+                >
+                  {currentCake.flavors.map((flavor) => (
+                    <option key={flavor} value={flavor}>
+                      {flavor}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             {/* Eggless Option toggle */}
             <div className="flex items-center gap-4 bg-accent-gold/5 p-4 rounded-2xl border border-accent-gold/10 w-fit">

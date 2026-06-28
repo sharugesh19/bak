@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal, ArrowRight } from "lucide-react";
 import cakesData from "@/data/cakes.json";
 import SchemaMarkup from "@/components/SchemaMarkup";
+import { getCakes } from "@/lib/adminStore";
 
 const categories = ["All", "Wedding", "Birthday", "Anniversary", "Cupcakes", "Theme"];
 const tags = ["All", "Best Seller", "Chocolate", "Eggless Option", "Customisable"];
@@ -19,9 +20,14 @@ export default function CatalogClient() {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [activeTag, setActiveTag] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [cakes, setCakes] = useState(cakesData);
+
+  useEffect(() => {
+    setCakes(getCakes());
+  }, []);
 
   const filteredCakes = useMemo(() => {
-    let result = cakesData;
+    let result = cakes;
 
     // Filter by Category
     if (activeCategory !== "All") {
@@ -45,7 +51,7 @@ export default function CatalogClient() {
     }
 
     return result;
-  }, [activeCategory, activeTag, searchQuery]);
+  }, [cakes, activeCategory, activeTag, searchQuery]);
 
   return (
     <div className="bg-warm-bg min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
