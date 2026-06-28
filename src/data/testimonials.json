@@ -1,0 +1,34 @@
+[
+  {
+    "id": "t1",
+    "name": "Priya Ramanathan",
+    "rating": 5,
+    "review": "The Golden Grace wedding cake was the highlight of our reception! The design was incredibly royal, and the vanilla raspberry layers were moist and flavor-packed. Highly recommend Anah Cakes!",
+    "cake": "Golden Grace Wedding Cake",
+    "date": "2026-05-12"
+  },
+  {
+    "id": "t2",
+    "name": "Arjun Sundar",
+    "rating": 5,
+    "review": "I ordered the Belgian Chocolate Truffle for my wife's birthday, and it was absolute heaven. Dark, rich, and not overly sweet. Standard is superb, best in Coimbatore.",
+    "cake": "Belgian Chocolate Truffle",
+    "date": "2026-06-01"
+  },
+  {
+    "id": "t3",
+    "name": "Deepika K.",
+    "rating": 5,
+    "review": "They customized a pastel blue birthday cake for my son. It looked gorgeous and tasted so fresh. Extremely hygienic kitchen and great service over WhatsApp.",
+    "cake": "Whimsical Pastel Dream",
+    "date": "2026-06-18"
+  },
+  {
+    "id": "t4",
+    "name": "Siddharth Verma",
+    "rating": 5,
+    "review": "The cupcakes were beautiful! The rose gold frosting and gold glitter looked stunning, and they tasted soft and fluffy. Best gift for a patisserie lover.",
+    "cake": "Rose Gold Cupcake Box",
+    "date": "2026-06-25"
+  }
+]

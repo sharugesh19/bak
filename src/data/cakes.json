@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "name": "Golden Grace Wedding Cake",
+    "slug": "golden-grace-wedding-cake",
+    "category": "Wedding",
+    "price": 4500,
+    "description": "An exquisite multi-tier masterpiece finished with smooth ivory cream, hand-painted antique gold details, and fresh blush roses. Perfect for a luxurious celebration.",
+    "image": "/cake_wedding.jpg",
+    "tags": ["Best Seller", "Customisable", "Premium"],
+    "flavors": ["Classic Vanilla Bean", "Rich Red Velvet", "Almond Praline"],
+    "sizes": ["3kg", "5kg", "7kg"]
+  },
+  {
+    "id": "2",
+    "name": "Belgian Chocolate Truffle",
+    "slug": "belgian-chocolate-truffle",
+    "category": "Anniversary",
+    "price": 1200,
+    "description": "Rich Belgian dark chocolate ganache layered between moist chocolate sponge, decorated with sleek chocolate curls and hints of luxury gold leaf.",
+    "image": "/cake_chocolate.jpg",
+    "tags": ["Chocolate", "Eggless Option", "Best Seller"],
+    "flavors": ["Belgian Dark Chocolate", "Hazelnut Chocolate", "Salted Caramel Chocolate"],
+    "sizes": ["1kg", "1.5kg", "2kg"]
+  },
+  {
+    "id": "3",
+    "name": "Whimsical Pastel Dream",
+    "slug": "whimsical-pastel-dream",
+    "category": "Birthday",
+    "price": 1500,
+    "description": "A magical watercolor pastel cake featuring hand-crafted fondant clouds and stars. Perfect to make any birthday celebration feel like a fairy tale.",
+    "image": "/cake_birthday.jpg",
+    "tags": ["Birthday", "Eggless Option", "Customisable"],
+    "flavors": ["Strawberry Cream", "Mango Passionfruit", "Blueberry Delight"],
+    "sizes": ["1kg", "2kg", "3kg"]
+  },
+  {
+    "id": "4",
+    "name": "Rose Gold Cupcake Box",
+    "slug": "rose-gold-cupcake-box",
+    "category": "Cupcakes",
+    "price": 600,
+    "description": "A set of 6 luxury cupcakes topped with silky rose gold buttercream, edible pearls, and gold glitter. The perfect dessert gift.",
+    "image": "/cake_cupcakes.jpg",
+    "tags": ["Cupcakes", "Gift Box"],
+    "flavors": ["Assorted (Vanilla, Chocolate, Red Velvet)"],
+    "sizes": ["Box of 6", "Box of 12"]
+  },
+  {
+    "id": "5",
+    "name": "Luxury Red Velvet Paradise",
+    "slug": "luxury-red-velvet-paradise",
+    "category": "Anniversary",
+    "price": 1350,
+    "description": "Classic velvet crumb layers filled with luxurious Madagascan vanilla cream cheese frosting and decorated with dried rose petals.",
+    "image": "https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?w=600&auto=format&fit=crop&q=60",
+    "tags": ["Classic", "Eggless Option"],
+    "flavors": ["Classic Red Velvet", "Red Velvet with Chocolate Drip"],
+    "sizes": ["1kg", "1.5kg", "2kg"]
+  },
+  {
+    "id": "6",
+    "name": "Tropical Mango Passion",
+    "slug": "tropical-mango-passion",
+    "category": "Theme",
+    "price": 1400,
+    "description": "A summer-themed mousse cake with layers of fresh Alphonso mango compote, tangy passionfruit curd, and soft sponge.",
+    "image": "https://images.unsplash.com/photo-1535141192574-5d4897c13636?w=600&auto=format&fit=crop&q=60",
+    "tags": ["Seasonal", "Fruit"],
+    "flavors": ["Mango Passionfruit", "Mango Vanilla"],
+    "sizes": ["1kg", "1.5kg", "2kg"]
+  }
+]
